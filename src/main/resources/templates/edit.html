@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+    <title>Friends Ranking</title>
+</head>
+<body style="padding: 20px;">
+	<h1 class="display-4">User edit</h1>
+	<hr>
+	<form th:method="put" th:action="@{/users/update/{id} (id = ${user.id})}" th:object="${user}" class="form-group">
+		<label>Name: <input type="text" th:field="*{name}" name="name" class="form-control"/></label>
+		<label>E-mail: <input type="text" th:field="*{email}" name="email" class="form-control"/></label>
+		<button type="submit" class="btn btn-success">Update</button>
+	</form>
+	<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+	<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+	<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</body>
+</html>

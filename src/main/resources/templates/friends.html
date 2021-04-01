@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+	<title>Friends Ranking</title>
+</head>
+<body style="padding: 20px;">
+	<h1 class="display-4"><span th:text="${user.name}"></span>'s friends ranking</h1>
+	<hr>
+	<h4>Register new Friend</h4>
+	<form method="post" th:action="@{/users/new-friend}" class="form-group">
+		<input type="hidden" th:field="${user.id}"/>
+		<label>Name: <input type="text" name="name" class="form-control"/></label>
+		<label>Points: <input type="number" min="0" max="100" name="points" class="form-control"/></label>
+		<button type="submit" class="btn btn-success">Save</button>
+	</form>	
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Position</th>
+				<th>Name</th>
+				<th>Points</th>
+				<th>Edit points</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="friend, status : ${friends}">
+				<td><span th:text="${status.count}"></span></td>
+				<td><span th:text="${friend.name}"></span></td>
+				<td><span th:text="${friend.points}"></span></td>
+				<td>	
+					<form th:method="put" th:action="@{/users/update-points/{id} (id = ${friend.id})}" class="input-group">
+						<input type="number" min="0" max="100" name="points" class="form-control" style="max-width: 250px; border-radius: 5px 0 0 5px;"/>
+						<button type="submit" class="btn btn-success input-group-append" style="border-radius: 0 5px 5px 0;">Update points</button>
+					</form>
+				</td>
+				<td class="form-group">	
+					<form th:method="delete" th:action="@{/users/delete-friend/{id} (id = ${friend.id})}">
+						<button type="submit" class="btn btn-danger">Delete</button>
+					</form>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+	<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+	<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</body>
+</html>

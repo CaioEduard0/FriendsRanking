@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+	<title>Friends Ranking</title>
+</head>
+<body style="padding: 20px;">
+	<h1 class="display-4">Users</h1>
+	<hr>
+	<h4>Register new user</h4>
+	<form th:method="post" th:action="@{users/register}" class="form-group">
+		<label>Name: <input type="text" name="name" class="form-control"/></label>
+		<label>E-mail: <input type="text" name="email" class="form-control"/></label>
+		<button type="submit" class="btn btn-success">Save</button>
+	</form>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>E-mail</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="user : ${users}">
+				<td><span th:text="${user.name}"></span></td>
+				<td><span th:text="${user.email}"></span></td>
+				<td><a th:href="@{users/{id}/friends(id = ${user.id})}" class="btn btn-primary">Friends</a></td>
+				<td><a th:href="@{users/edit/{id}(id = ${user.id})}" class="btn btn-warning">Edit</a></td>	
+				<td>
+					<form th:method="delete" th:action="@{users/delete/{id}(id = ${user.id})}">
+						<button type="submit" class="btn btn-danger">Delete</button>
+					</form>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+	<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+	<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/5.0.1/css/bootstrap.min.css}">
+	<title>Friends Ranking</title>
+</head>
+<body style="padding: 20px;" class="text-center">
+	
+	<h1 class="display-4">Login</h1>
+	<br>
+	<hr>
+	<form th:action="@{/login}" th:method="post" class="form-group">
+		<label>E-mail<input type="email" name="email" placeholder="E-mail" class="form-control" autofocus/></label>
+		<br>
+		<br>
+		<label>Password<input type="password" name="password" placeholder="Password" class="form-control"/></label>
+		<br>
+		<br>
+		<button type="submit" class="btn btn-success ps-5 pe-5">Sign in</button>
+	</form>
+	<br>
+	<p th:if="${param.error}" class="alert alert-danger" style="width: 500px; margin-left: auto; margin-right: auto;">E-mail or password incorrect!</p>
+	<br>
+	<p th:if="${param.logout}" class="alert alert-warning" style="width: 500px; margin-left: auto; margin-right: auto;">You are disconnected!</p>	
+	<br>
+	<br>
+	<div>
+		<p>Don't have an account?</p>
+		<a th:href="@{/sign-up}" class="btn btn-primary">Sign up</a>
+	</div>
+	
+	<script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
+	<script th:src="@{/webjars/popper.js/2.9.2/umd/popper.min.js}"></script>
+	<script th:src="@{/webjars/bootstrap/5.0.1/js/bootstrap.min.js}"></script>
+</body>
+</html>

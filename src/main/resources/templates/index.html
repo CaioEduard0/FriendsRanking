@@ -2,41 +2,63 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
-	<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" th:href="@{/webjars/bootstrap/5.0.1/css/bootstrap.min.css}">
 	<title>Friends Ranking</title>
 </head>
-<body style="padding: 20px;">
-	<h1 class="display-4">Users</h1>
+<body style="padding: 20px;" class="text-center">
+	
+	<div class="d-flex justify-content-between align-items-center">
+		<h1 class="display-5"><span th:text="${user.name}"></span>'s friends ranking</h1>
+		<a th:href="@{/login?logout}" class="btn btn-primary">Logout</a>
+	</div>
+	<br>
 	<hr>
-	<h4>Register new user</h4>
-	<form th:method="post" th:action="@{users/register}" class="form-group">
-		<label>Name: <input type="text" name="name" class="form-control"/></label>
-		<label>E-mail: <input type="text" name="email" class="form-control"/></label>
-		<button type="submit" class="btn btn-success">Save</button>
+	<p style="display: inline; margin-right: 20px;" class="h4">Register new Friend</p>
+	<form method="post" th:action="@{/new-friend}" class="form-group" style="display: inline;">
+		<label>Name<input type="text" name="name" placeholder="Name" class="form-control"/></label>
+		<label>Points<input type="number" name="points" placeholder="0-100" class="form-control"/></label>
+		<button type="submit" class="btn btn-success ps-5 pe-5" style="margin-bottom: 3px;">Save</button>
 	</form>
+	<br>
+	<p th:each="error : ${errors}" th:text="${error.getDefaultMessage()}" class="alert alert-danger" style="width: 500px; margin-left: auto; margin-right: auto;"></p>
+	<br>
+	<hr>
+	<br>
 	<table class="table">
 		<thead>
 			<tr>
+				<th>Position</th>
 				<th>Name</th>
-				<th>E-mail</th>
-			</tr>
+				<th>Points</th>
+				<th></th>
+				<th></th>
+				</tr>
 		</thead>
 		<tbody>
-			<tr th:each="user : ${users}">
-				<td><span th:text="${user.name}"></span></td>
-				<td><span th:text="${user.email}"></span></td>
-				<td><a th:href="@{users/{id}/friends(id = ${user.id})}" class="btn btn-primary">Friends</a></td>
-				<td><a th:href="@{users/edit/{id}(id = ${user.id})}" class="btn btn-warning">Edit</a></td>	
-				<td>
-					<form th:method="delete" th:action="@{users/delete/{id}(id = ${user.id})}">
+			<tr th:each="friend, status : ${friends}">
+				<td><span th:text="${status.count}"></span></td>
+				<td><span th:text="${friend.name}"></span></td>
+				<td><span th:text="${friend.points}"></span></td>
+				<td>	
+					<form th:method="put" th:action="@{/update/{id} (id = ${friend.id})}" class="input-group">
+						<input type="number" name="points" placeholder="0-100" class="form-control" style="max-width: 200px; border-radius: 5px 0 0 5px;"/>
+						<button type="submit" class="btn btn-warning input-group-append" style="border-radius: 0 5px 5px 0;">Update points</button>
+					</form>
+				</td>
+				<td class="form-group">	
+					<form th:method="delete" th:action="@{/delete/{id} (id = ${friend.id})}">
 						<button type="submit" class="btn btn-danger">Delete</button>
 					</form>
 				</td>
 			</tr>
 		</tbody>
 	</table>
-	<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
-	<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
-	<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+	<br>
+	<p th:each="error : ${updateError}" th:text="${error.getDefaultMessage()}" class="alert alert-danger" style="width: 500px; margin-left: auto; margin-right: auto;"></p>
+	
+	<script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
+	<script th:src="@{/webjars/popper.js/2.9.2/umd/popper.min.js}"></script>
+	<script th:src="@{/webjars/bootstrap/5.0.1/js/bootstrap.min.js}"></script>
 </body>
 </html>

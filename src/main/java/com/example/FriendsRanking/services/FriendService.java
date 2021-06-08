@@ -1,50 +1,39 @@
 package com.example.FriendsRanking.services;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.FriendsRanking.entities.Friend;
 import com.example.FriendsRanking.entities.User;
 import com.example.FriendsRanking.repositories.FriendRepository;
+import com.example.FriendsRanking.repositories.UserRepository;
 
 @Service
 public class FriendService {
 	
-	@Autowired
 	private FriendRepository friendRepository;
+	private UserRepository userRepository;
 	
-	@Autowired
-	private UserService userService;
-	
-	public List<Friend> findAllFriends(Long id) {
-		User user = userService.findUserById(id);
-		List<Friend> friends = user.getFriends();
-		Collections.sort(friends);
-		return friends;
+	public FriendService(FriendRepository friendRepository, UserRepository userRepository) {
+		this.friendRepository = friendRepository;
+		this.userRepository = userRepository;
 	}
 	
-	public void insertFriend(String id, Friend friend) {
-		User user = userService.findUserById(Long.parseLong(id));
-		user.getFriends().add(friend);
-		friend.setUser(user);
+	public void insertFriend(String email, Friend friend) {
+		Optional<User> user = userRepository.findByEmail(email);
+		user.get().getFriends().add(friend);
+		friend.setUser(user.get());
 		friendRepository.save(friend);
 	}
 	
-	public long updatePoints(Long id, Integer points) {
+	public void updatePoints(Long id, int points) {
 		Optional<Friend> friend = friendRepository.findById(id);
 		friend.get().setPoints(points);
 		friendRepository.save(friend.get());
-		return friend.get().getUser().getId();
 	}
 	
-	public long deleteFriend(Long id) {
-		Optional<Friend> friend = friendRepository.findById(id);
-		long userId = friend.get().getUser().getId();
+	public void deleteFriend(Long id) {
 		friendRepository.deleteById(id);
-		return userId;
 	}
 }

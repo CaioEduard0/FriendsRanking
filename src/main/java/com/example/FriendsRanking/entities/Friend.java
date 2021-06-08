@@ -19,20 +19,11 @@ public class Friend implements Serializable, Comparable<Friend> {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
-	private Integer points;
+	private int points;
 	
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
-	
-	public Friend() {}
-
-	public Friend(Long id, String name, Integer points, User user) {
-		this.id = id;
-		this.name = name;
-		this.points = points;
-		this.user = user;
-	}
 
 	public Long getId() {
 		return id;
@@ -46,11 +37,11 @@ public class Friend implements Serializable, Comparable<Friend> {
 		this.name = name;
 	}
 
-	public Integer getPoints() {
+	public int getPoints() {
 		return points;
 	}
 
-	public void setPoints(Integer points) {
+	public void setPoints(int points) {
 		this.points = points;
 	}
 

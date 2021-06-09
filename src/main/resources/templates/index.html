@@ -21,7 +21,8 @@
 		<button type="submit" class="btn btn-success ps-5 pe-5" style="margin-bottom: 3px;">Save</button>
 	</form>
 	<br>
-	<p th:each="error : ${errors}" th:text="${error.getDefaultMessage()}" class="alert alert-danger" style="width: 500px; margin-left: auto; margin-right: auto;"></p>
+	<br>
+	<p th:each="error : ${errors}" th:text="${error}" class="alert alert-danger" style="width: 500px; margin-left: auto; margin-right: auto;"></p>
 	<br>
 	<hr>
 	<br>
@@ -55,7 +56,7 @@
 		</tbody>
 	</table>
 	<br>
-	<p th:each="error : ${updateError}" th:text="${error.getDefaultMessage()}" class="alert alert-danger" style="width: 500px; margin-left: auto; margin-right: auto;"></p>
+	<p th:each="error : ${updateError}" th:text="${error}" class="alert alert-danger" style="width: 500px; margin-left: auto; margin-right: auto;"></p>
 	
 	<script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
 	<script th:src="@{/webjars/popper.js/2.9.2/umd/popper.min.js}"></script>

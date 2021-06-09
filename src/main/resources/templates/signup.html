@@ -14,7 +14,7 @@
 	<hr>
 	<form th:action="@{/sign-up}" th:method="post" class="form-group">
 		<label>Name<input type="text" name="name" class="form-control" autofocus/></label>
-		<label>E-mail<input type="email" name="email" class="form-control"/></label>
+		<label>E-mail<input type="text" name="email" class="form-control"/></label>
 		<label>Password<input type="password" name="password" class="form-control"/></label>
 		<label>Authorities 
 			<select name="authorities" class="form-control ps-5 pe-5">
@@ -28,6 +28,7 @@
 	</form>
 	<br>
 	<p th:each="error : ${errors}" th:text="${error.getDefaultMessage()}" class="alert alert-danger" style="width: 500px; margin-left: auto; margin-right: auto;"></p>
+	<p th:if="${exception}" th:text="${exception}" class="alert alert-danger" style="width: 500px; margin-left: auto; margin-right: auto;"></p>
 	
 	<script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
 	<script th:src="@{/webjars/popper.js/2.9.2/umd/popper.min.js}"></script>

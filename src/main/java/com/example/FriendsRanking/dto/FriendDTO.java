@@ -11,7 +11,7 @@ import com.example.FriendsRanking.entities.Friend;
 public class FriendDTO {
 	
 	@NotBlank(message = "{name.not.blank}")
-	@Size(message = "{name.size}")
+	@Size(min = 2, max = 50, message = "{name.size}")
 	private String name;
 	
 	@Min(value = 0, message = "{points.size}")

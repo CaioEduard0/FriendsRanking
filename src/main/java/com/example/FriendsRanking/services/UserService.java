@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.FriendsRanking.entities.User;
 import com.example.FriendsRanking.repositories.UserRepository;
+import com.example.FriendsRanking.services.exceptions.RepeatedEmailException;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -25,6 +26,10 @@ public class UserService implements UserDetailsService {
 	}
 	
 	public void insertUser(User user) {
+		Optional<User> email = userRepository.findByEmail(user.getEmail());
+		if (email.isPresent()) {
+			throw new RepeatedEmailException(user.getEmail());
+		}
 		userRepository.save(user);
 	}
 
